@@ -1,12 +1,11 @@
 import whisper
 import os
-from datetime import datetime
 
 # Path to iCloud Voice Memos folder
 icloud_path = os.path.expanduser(
     "/Users/carolinesanicola/Library/Mobile Documents/com~apple~CloudDocs/Voice Memos/Meetings")
 vault_path = os.path.expanduser(
-    "/Users/carolinesanicola/Library/Mobile Documents/iCloud~md~obsidian/Documents/Main/06 - Main Notes/05 - Meetings")
+    "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/MyVault/")
 
 # Find the latest voice memo
 files = [f for f in os.listdir(icloud_path) if f.endswith(".m4a")]
@@ -38,12 +37,8 @@ markdown_content = f"""
 {"\n- ".join(follow_ups)}
 """
 
-# Get the current date and time
-current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-
-# Create a file name with the timestamp
-file_name = f"Meeting_Notes_{current_time}.md"
-output_file = os.path.join(vault_path, file_name)
+# Save to Obsidian vault
+output_file = os.path.join(vault_path, "Meeting_Notes.md")
 with open(output_file, "w") as f:
     f.write(markdown_content)
 
